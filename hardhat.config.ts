@@ -1,6 +1,10 @@
 import fs from "fs";
-import "@nomiclabs/hardhat-waffle";
-import "@typechain/hardhat";
+import '@nomicfoundation/hardhat-ethers';
+import '@typechain/hardhat';
+import 'hardhat-gas-reporter';
+import 'solidity-coverage';
+import "hardhat-deploy";
+import "hardhat-deploy-ethers";
 import "hardhat-preprocessor";
 import { HardhatUserConfig, task } from "hardhat/config";
 
@@ -17,8 +21,22 @@ function getRemappings() {
 task("example", "Example task").setAction(example);
 
 const config: HardhatUserConfig = {
+  networks: {
+    hardhat: {
+      chainId: 31337,
+    },
+    localhost: {
+      chainId: 31337,
+    }
+  },
+  namedAccounts: {
+    deployer: {
+      default: 0,
+      1: 0,
+    }
+  },
   solidity: {
-    version: "0.8.13",
+    version: "0.8.20",
     settings: {
       optimizer: {
         enabled: true,
@@ -39,6 +57,8 @@ const config: HardhatUserConfig = {
             if (line.match(find)) {
               line = line.replace(find, replace);
             }
+            line = line.replace("lib/lib", "lib")
+            // console.log(line)
           });
         }
         return line;
@@ -47,4 +67,4 @@ const config: HardhatUserConfig = {
   },
 };
 
-export default config;
+export default config

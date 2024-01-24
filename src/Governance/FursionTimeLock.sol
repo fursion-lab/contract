@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/governance/TimelockControllerUpgradeable.sol";
 
-contract FursionTimeLock is TimelockControllerUpgradeable {
+contract FursionTimeLock is Initializable, TimelockControllerUpgradeable {
   /// @custom:oz-upgrades-unsafe-allow constructor
   constructor() {
     _disableInitializers();
@@ -13,7 +14,7 @@ contract FursionTimeLock is TimelockControllerUpgradeable {
     uint256 minDelay,
     address[] memory proposers,
     address[] memory executors,
-    address admin) {
+    address admin) initializer public {
     __TimelockController_init(minDelay, proposers, executors, admin);
   }
 }

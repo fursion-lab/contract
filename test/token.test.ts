@@ -5,7 +5,7 @@ describe("Token", function () {
   it("Should return name Token", async function () {
     const Token = await ethers.getContractFactory("Token");
     const token = await Token.deploy();
-    await token.deployed();
+    await token.waitForDeployment();
 
     expect(await token.name()).to.equal("Token");
   });

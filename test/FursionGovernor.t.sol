@@ -9,10 +9,10 @@ contract TokenTest is Test {
     FursionGovernor fg;
 
     function setUp() public {
-        t = new FursionGovernor();
+        fg = new FursionGovernor();
     }
 
     function testName() public {
-        assertEq(t.name(), "Token");
+        assertEq(fg.name(), "Token");
     }
 }
